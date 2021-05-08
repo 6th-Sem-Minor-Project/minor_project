@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "549006973982",
+    "project_id": "nie-answerhub",
+    "storage_bucket": "nie-answerhub.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:549006973982:android:c8f30419fd59c86a22620f",
+        "android_client_info": {
+          "package_name": "com.example.nie_answerhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "549006973982-1stf3et8nlol1oit3nnv9smkli0mip3h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nie_answerhub",
+            "certificate_hash": "a1f133d5c2dea6776a6432d1b2e807c067bfc3cf"
+          }
+        },
+        {
+          "client_id": "549006973982-oc5s37cgrhkd2lrb92sdgh7aakiimne2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnw1CgUxDy_1rai0L7pkez-CPnbipUOMM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "549006973982-oc5s37cgrhkd2lrb92sdgh7aakiimne2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
