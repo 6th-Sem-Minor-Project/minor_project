@@ -42,6 +42,18 @@ class DatabaseService {
         .catchError((error) => error);
   }
 
+  Future<void> updateQuestion(Question question) async {
+    return await questionCollection
+        .doc(question.id)
+        .update({
+          'Question': question.question,
+          'description': question.description,
+          'Tags': question.tags
+        })
+        .then((value) => value)
+        .catchError((error) => error);
+  }
+
   Future<void> closeQuestion(Question question) async {
     return await questionCollection
         .doc(question.id)
@@ -97,8 +109,9 @@ class DatabaseService {
         .add({
           'Question': question.question,
           'Tags': question.tags,
-          'user': this.uid,
-          'isClosed': question.isClosed,
+          'user': question.userId,
+          'description': question.description,
+          'isClosed': false,
         })
         .then((value) => print('Question Added'))
         .catchError((error) => print(error));

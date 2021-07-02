@@ -1,4 +1,5 @@
 import 'package:minor_project/screens/answers/submit_answer.dart';
+import 'package:minor_project/screens/home/ask_question.dart';
 import '../../utils/functions/functions.dart';
 import 'package:minor_project/screens/answers/answer_list.dart';
 import 'package:minor_project/screens/home/edit_question.dart';
@@ -45,7 +46,7 @@ class _AnswersPageState extends State<AnswersPage> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => EditQuestion(widget.question)));
+                  builder: (context) => AskQuestion(question: widget.question))).then((_) => setState(() {}));
         },
       );
     } else {
@@ -102,6 +103,7 @@ class _AnswersPageState extends State<AnswersPage> {
           ? Loading()
           : SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                       margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -140,7 +142,7 @@ class _AnswersPageState extends State<AnswersPage> {
                             ),
                           ),
                           Text(
-                            questionAskedByUser.usn,
+                            questionAskedByUser.uid == uid ? 'Me' : questionAskedByUser.usn,
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w200,
@@ -162,7 +164,8 @@ class _AnswersPageState extends State<AnswersPage> {
                                   child: Text('Close Question'),
                                   onPressed: () {
                                     db.closeQuestion(widget.question);
-                                    showMyDialog(context, 'Question Closed', 'This question is now closed!');
+                                    showMyDialog(context, 'Question Closed',
+                                        'This question is now closed!');
                                     setState(() {
                                       widget.question.isClosed = true;
                                     });
