@@ -54,11 +54,11 @@ class DatabaseService {
         .catchError((error) => error);
   }
 
-  Future<void> closeQuestion(Question question) async {
+  Future<void> toggleCloseQuestion(Question question) async {
     return await questionCollection
         .doc(question.id)
         .update({
-          'isClosed': true,
+          'isClosed': !question.isClosed,
         })
         .then((value) => value)
         .catchError((error) => error);

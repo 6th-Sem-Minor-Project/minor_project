@@ -135,14 +135,14 @@ class _AnswersPageState extends State<AnswersPage> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            questionAskedByUser.name,
+                            questionAskedByUser.uid == uid ? 'Me' : questionAskedByUser.name,
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w200,
                             ),
                           ),
                           Text(
-                            questionAskedByUser.uid == uid ? 'Me' : questionAskedByUser.usn,
+                            questionAskedByUser.usn,
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w200,
@@ -156,20 +156,20 @@ class _AnswersPageState extends State<AnswersPage> {
                       )
                     ],
                   ),
-                  (questionAskedByUser.uid == uid && !widget.question.isClosed)
+                  (questionAskedByUser.uid == uid)
                       ? Row(
                           children: [
                             Expanded(
                               child: ElevatedButton(
-                                  child: Text('Close Question'),
+                                  child: Text(widget.question.isClosed ? 'Reopen Question' : 'Close Question'),
                                   onPressed: () {
-                                    db.closeQuestion(widget.question);
-                                    showMyDialog(context, 'Question Closed',
-                                        'This question is now closed!');
+                                    db.toggleCloseQuestion(widget.question);
+                                    // showMyDialog(context, 'Question Closed',
+                                    //     'This question is now closed!');
                                     setState(() {
-                                      widget.question.isClosed = true;
+                                      widget.question.isClosed = !widget.question.isClosed;
                                     });
-                                    // Navigator.pop(context);
+                                    Navigator.pop(context);
                                   }),
                             ),
                           ],
