@@ -21,7 +21,7 @@ class _UserProfileState extends State<UserProfile> {
     DatabaseService _db = DatabaseService();
     AuthService _auth = AuthService();
 
-  if (userList != null && uid != null) {
+    if (userList != null && uid != null) {
       setState(() {
         loading = false;
       });
@@ -39,7 +39,6 @@ class _UserProfileState extends State<UserProfile> {
     TextEditingController emailController = TextEditingController();
     TextEditingController semController = TextEditingController();
     TextEditingController deptController = TextEditingController();
-
 
     if (user != null) {
       usernameController.text = user.name;
@@ -111,7 +110,9 @@ class _UserProfileState extends State<UserProfile> {
                           // Username
                           child: TextFormField(
                             controller: usernameController,
-                            validator: (value) => value == "" ? 'This Field cannot be empty' : null,
+                            validator: (value) => value == ""
+                                ? 'This Field cannot be empty'
+                                : null,
                             cursorColor: Colors.white,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -145,7 +146,9 @@ class _UserProfileState extends State<UserProfile> {
                           ),
                           child: TextFormField(
                             controller: usnController,
-                            validator: (value) => value == "" ? 'This field cannot be empty' : null,
+                            validator: (value) => value == ""
+                                ? 'This field cannot be empty'
+                                : null,
                             cursorColor: Colors.white,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -210,7 +213,9 @@ class _UserProfileState extends State<UserProfile> {
                           ),
                           child: TextFormField(
                             controller: semController,
-                            validator: (value) => value == "" ? 'This field cannot be empty' : null,
+                            validator: (value) => value == ""
+                                ? 'This field cannot be empty'
+                                : null,
                             cursorColor: Colors.white,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -244,7 +249,9 @@ class _UserProfileState extends State<UserProfile> {
                           ),
                           child: TextFormField(
                             controller: deptController,
-                            validator: (value) => value == "" ? 'This field cannot be empty' : null,
+                            validator: (value) => value == ""
+                                ? 'This field cannot be empty'
+                                : null,
                             cursorColor: Colors.white,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -278,11 +285,16 @@ class _UserProfileState extends State<UserProfile> {
                         horizontal: 20, vertical: 10),
                     child: RaisedButton(
                       onPressed: () async {
-                        if(_formKey.currentState.validate()) {
-                          UserModel updatedUser = UserModel(name: usernameController.text, usn: usnController.text, sem: semController.text, branch: deptController.text, uid: user.uid);
+                        if (_formKey.currentState.validate()) {
+                          UserModel updatedUser = UserModel(
+                              name: usernameController.text,
+                              usn: usnController.text,
+                              sem: semController.text,
+                              branch: deptController.text,
+                              uid: user.uid);
                           await _db.updateUserProfileData(updatedUser);
-                          showMyDialog(context, "Successfuly Updated", "Your profile has been successfully updated. If the changes are not yet visible, please refresh the screen.");
-
+                          showMyDialog(context, "Successfuly Updated",
+                              "Your profile has been successfully updated. If the changes are not yet visible, please refresh the screen.");
                         }
                       },
                       color: Colors.blue[800],
@@ -310,7 +322,7 @@ class _UserProfileState extends State<UserProfile> {
                           child: RaisedButton(
                             onPressed: () async {
                               String result = await _auth.signOut();
-                              if(result != null) {
+                              if (result != null) {
                                 Navigator.pop(context);
                               }
                             },

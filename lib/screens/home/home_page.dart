@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:minor_project/screens/dept/select_dept.dart';
 import 'package:minor_project/screens/home/ask_question.dart';
 import 'package:minor_project/screens/home/question_list.dart';
 import 'package:minor_project/screens/profile/user_profile.dart';
+import 'package:minor_project/screens/project_req/add_project_request.dart';
 import 'package:minor_project/screens/search/search.dart';
 import 'package:minor_project/services/auth_service.dart';
 import 'package:minor_project/services/database.dart';
@@ -18,6 +20,43 @@ class _HomePageState extends State<HomePage> {
 
   final questionController = TextEditingController();
   final tagsController = TextEditingController();
+
+  Widget getFloatingActionButtonforPage(int index) {
+    switch (index) {
+      case 0:
+        return Visibility(
+          visible: currentIndex == 0 ? true : false,
+          child: FloatingActionButton(
+            child: Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(
+                context,
+                (MaterialPageRoute(
+                  builder: (context) => AskQuestion(dept: 'general'),
+                )),
+              );
+            },
+          ),
+        );
+      case 3:
+        return Visibility(
+          visible: currentIndex == 3 ? true : false,
+          child: FloatingActionButton(
+            child: Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(
+                context,
+                (MaterialPageRoute(
+                  builder: (context) => AskQuestion(dept: 'general'),
+                )),
+              );
+            },
+          ),
+        );
+      default:
+        return SizedBox();
+    }
+  }
 
   var currentIndex = 0;
 
@@ -38,9 +77,13 @@ class _HomePageState extends State<HomePage> {
       'Project Request',
     ];
 
+    List<dynamic> tagsToFilter = ['general'];
+
     List<Widget> screenList = [
-      QuestionList(),
+      QuestionList(tagsToFilter: tagsToFilter),
       SearchQuestions(),
+      SelectDepartment(),
+      AddProjectRequest(),
     ];
 
     return Scaffold(
@@ -65,17 +108,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: screenList[currentIndex],
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.push(
-            context,
-            (MaterialPageRoute(
-              builder: (context) => AskQuestion(dept: 'general'),
-            )),
-          );
-        },
-      ),
+      floatingActionButton: getFloatingActionButtonforPage(currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: this.currentIndex,

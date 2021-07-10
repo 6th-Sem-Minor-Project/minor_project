@@ -2,6 +2,7 @@ import '../models/question.dart';
 import '../models/user.dart';
 import '../models/answer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../models/project_request.dart'
 
 class DatabaseService {
   final String uid;
@@ -16,6 +17,9 @@ class DatabaseService {
 
   final CollectionReference answerCollection =
       FirebaseFirestore.instance.collection('answers');
+
+  final CollectionReference projReqCollection =
+      FirebaseFirestore.instance.collection('project_request');
 
   Future<void> addUserData(
       String name, String usn, int sem, String branch, String email) async {
@@ -35,15 +39,15 @@ class DatabaseService {
 
   Future<void> updateUserProfileData(UserModel user) async {
     return await userCollection
-    .doc(user.uid)
-    .update({
-      'name': user.name,
-      'usn': user.usn,
-      'branch': user.branch,
-      'sem': user.sem
-    })
-    .then((value) => value)
-    .catchError((error) => error);
+        .doc(user.uid)
+        .update({
+          'name': user.name,
+          'usn': user.usn,
+          'branch': user.branch,
+          'sem': user.sem
+        })
+        .then((value) => value)
+        .catchError((error) => error);
   }
 
   Future<void> updateAnswer(Answer answer) async {
@@ -119,6 +123,20 @@ class DatabaseService {
     }).toList();
   }
 
+  List<ProjectRequest> _requestListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return ProjectRequest(
+        title: doc['title'],
+        description: doc['description'],
+        skills: doc['skills'],
+        uid: doc['userId']
+        isClosed: doc['isClosed'],
+        teamHeadCount: doc['team_head_count'],
+        id: doc.id,
+      )
+    })
+  }
+
   Future<void> addQuestion(Question question) async {
     print(question.tags);
     return await questionCollection
@@ -159,4 +177,9 @@ class DatabaseService {
   Stream<List<Question>> get questions {
     return questionCollection.snapshots().map(_questionListFromSnapshot);
   }
+
+  Stream<List<ProjectRequest>> get requests {
+    return projReqCollection.snapshots().map(_requestsListFromSnapshot);
+  }
+
 }

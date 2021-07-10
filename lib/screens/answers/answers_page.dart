@@ -10,7 +10,6 @@ import '../../utils/spinner/loading_spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class AnswersPage extends StatefulWidget {
   AnswersPage({this.question});
 
