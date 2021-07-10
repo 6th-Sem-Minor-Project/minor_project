@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         //   ),
         //   backgroundColor: bgColor,
         // ),
-        theme: ThemeData.dark(),
+
         debugShowCheckedModeBanner: false,
         home: Wrapper(),
       ),

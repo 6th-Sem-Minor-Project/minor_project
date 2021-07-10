@@ -17,7 +17,7 @@ class DatabaseService {
   final CollectionReference answerCollection =
       FirebaseFirestore.instance.collection('answers');
 
-  Future<void> updateUserData(
+  Future<void> addUserData(
       String name, String usn, int sem, String branch, String email) async {
     return await userCollection
         .doc(uid)
@@ -26,10 +26,24 @@ class DatabaseService {
           'usn': usn,
           'sem': sem,
           'branch': branch,
-          'email': email
+          'email': email,
+          'preferredBranch': branch
         })
         .then((value) => print('User Added'))
         .catchError((error) => print(error));
+  }
+
+  Future<void> updateUserProfileData(UserModel user) async {
+    return await userCollection
+    .doc(user.uid)
+    .update({
+      'name': user.name,
+      'usn': user.usn,
+      'branch': user.branch,
+      'sem': user.sem
+    })
+    .then((value) => value)
+    .catchError((error) => error);
   }
 
   Future<void> updateAnswer(Answer answer) async {
@@ -74,6 +88,8 @@ class DatabaseService {
         uid: doc.id,
         email: doc['email'],
         branch: doc['branch'],
+        preferredBranch: doc['preferredBranch'],
+        sem: doc['sem'].toString(),
       );
     }).toList();
   }

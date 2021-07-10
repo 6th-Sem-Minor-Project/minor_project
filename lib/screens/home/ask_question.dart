@@ -4,7 +4,6 @@ import 'package:minor_project/services/database.dart';
 import 'package:provider/provider.dart';
 
 class AskQuestion extends StatefulWidget {
-
   String dept;
   Question question = null;
 
@@ -33,22 +32,19 @@ class _AskQuestionState extends State<AskQuestion> {
 
   @override
   Widget build(BuildContext context) {
-
     String uid = Provider.of<String>(context);
     DatabaseService _db = new DatabaseService(uid: uid);
     TextEditingController questionController = TextEditingController();
     TextEditingController descriptionController = TextEditingController();
     TextEditingController tagsController = TextEditingController();
-    
 
-    if(widget.dept == 'general') {
+    if (widget.dept == 'general') {
       tagsController.text = '#general';
-    }
-    else {
+    } else {
       tagsController.text = widget.dept;
     }
 
-    if(widget.question != null) {
+    if (widget.question != null) {
       questionController.text = widget.question.question;
       descriptionController.text = widget.question.description;
       tagsController.text = _processListTagsToString(widget.question.tags);
@@ -76,9 +72,7 @@ class _AskQuestionState extends State<AskQuestion> {
                   SizedBox(height: 20),
                   Text(
                     'Question: ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.w900),
                   ),
                   SizedBox(height: 20),
                   TextFormField(
@@ -86,39 +80,39 @@ class _AskQuestionState extends State<AskQuestion> {
                       hintText: 'Type your question here...',
                       border: OutlineInputBorder(),
                     ),
-                    validator: (value) => value == '' ? 'This field cannot be empty' : null,
+                    validator: (value) =>
+                        value == '' ? 'This field cannot be empty' : null,
                     controller: questionController,
                     maxLines: null,
                   ),
                   SizedBox(height: 20),
                   Text(
                     'Description: ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.w900),
                   ),
                   SizedBox(height: 20),
                   TextFormField(
                     decoration: InputDecoration(
-                      hintText: 'A breif description of your question... (Optional)',
+                      hintText:
+                          'A breif description of your question... (Optional)',
                       border: OutlineInputBorder(),
                     ),
+                    maxLines: null,
                     controller: descriptionController,
                   ),
                   SizedBox(height: 20),
                   Text(
                     'Tags: ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.w900),
                   ),
                   SizedBox(height: 20),
                   TextFormField(
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      helperText: 'Enter space separated tags relavant to your question'
-                    ),
-                    validator: (value) => value == '' ? 'Enter appropriate tags' : null,
+                        border: OutlineInputBorder(),
+                        helperText:
+                            'Enter space separated tags relavant to your question'),
+                    validator: (value) =>
+                        value == '' ? 'Enter appropriate tags' : null,
                     controller: tagsController,
                   ),
                   SizedBox(height: 20),
@@ -126,18 +120,28 @@ class _AskQuestionState extends State<AskQuestion> {
                     children: [
                       Expanded(
                         child: ElevatedButton(
-                          child: Text(widget.question != null ? 'Edit Question' : 'Ask Question!'),
+                          child: Text(widget.question != null
+                              ? 'Edit Question'
+                              : 'Ask Question!'),
                           onPressed: () async {
-                            if(_formKey.currentState.validate()) {
-                              List<dynamic> finalTagsList = _processInputTags(tagsController.text);
-                              Question question = new Question(question: questionController.text, description: descriptionController.text, tags: finalTagsList, userId: uid,);
-                              if(widget.question != null) {
-                                widget.question.question = questionController.text;
-                                widget.question.description = descriptionController.text;
-                                widget.question.tags = _processInputTags(tagsController.text);
+                            if (_formKey.currentState.validate()) {
+                              List<dynamic> finalTagsList =
+                                  _processInputTags(tagsController.text);
+                              Question question = new Question(
+                                question: questionController.text,
+                                description: descriptionController.text,
+                                tags: finalTagsList,
+                                userId: uid,
+                              );
+                              if (widget.question != null) {
+                                widget.question.question =
+                                    questionController.text;
+                                widget.question.description =
+                                    descriptionController.text;
+                                widget.question.tags =
+                                    _processInputTags(tagsController.text);
                                 await _db.updateQuestion(widget.question);
-                              }
-                              else {
+                              } else {
                                 await _db.addQuestion(question);
                               }
                               Navigator.pop(context);

@@ -5,6 +5,7 @@ class UserModel {
   String email;
   String branch;
   String sem;
+  String preferredBranch;
 
   UserModel({
     this.uid,
@@ -13,5 +14,6 @@ class UserModel {
     this.email,
     this.branch,
     this.sem,
+    this.preferredBranch,
   });
 }

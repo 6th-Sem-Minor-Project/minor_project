@@ -75,7 +75,7 @@ class AuthService {
       String uid = userCredential.user.uid;
 
       await DatabaseService(uid: uid)
-          .updateUserData(name, usn, sem, branch, email);
+          .addUserData(name, usn, sem, branch, email);
 
       return AuthResult(true, null);
     } on FirebaseAuthException catch (e) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minor_project/screens/home/ask_question.dart';
 import 'package:minor_project/screens/home/question_list.dart';
+import 'package:minor_project/screens/profile/user_profile.dart';
 import 'package:minor_project/screens/search/search.dart';
 import 'package:minor_project/services/auth_service.dart';
 import 'package:minor_project/services/database.dart';
@@ -12,7 +13,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
   final _authInstance = AuthService();
   final _formkey = GlobalKey<FormState>();
 
@@ -31,19 +31,34 @@ class _HomePageState extends State<HomePage> {
     final uid = Provider.of<String>(context);
     this.tagsController.text = '#general';
 
+    List<String> titleList = [
+      'Nie AnswerHub',
+      'Search Page',
+      'Select Department',
+      'Project Request',
+    ];
+
     List<Widget> screenList = [
       QuestionList(),
       SearchQuestions(),
     ];
-    
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('NIEAnswerHub'),
+        title: Text(titleList[currentIndex]),
         actions: [
-          TextButton(
-            child: Icon(Icons.account_box_rounded),
-            onPressed: () async {
-              await _authInstance.signOut();
+          MaterialButton(
+            child: Icon(
+              Icons.account_circle_sharp,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserProfile(),
+                ),
+              );
             },
           ),
         ],
@@ -53,7 +68,12 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          Navigator.push(context, (MaterialPageRoute(builder: (context) => AskQuestion(dept: 'general'),)),);
+          Navigator.push(
+            context,
+            (MaterialPageRoute(
+              builder: (context) => AskQuestion(dept: 'general'),
+            )),
+          );
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -71,13 +91,13 @@ class _HomePageState extends State<HomePage> {
             // title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.fireplace),
+            icon: Icon(Icons.account_balance_sharp),
             label: 'Dept',
             // title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: 'Profile',
+            icon: Icon(Icons.my_library_add_sharp),
+            label: 'Project Request',
             // title: Text('Home'),
           ),
         ],

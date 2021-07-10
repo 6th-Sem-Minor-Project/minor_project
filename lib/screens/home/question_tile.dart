@@ -10,7 +10,7 @@ class QuestionTile extends StatelessWidget {
   List<Widget> _createChildren(List<dynamic> tags) {
     return new List<Widget>.generate(tags.length, (index) {
       return Card(
-        elevation: 6,
+        elevation: 1,
         child: Text(tags[index].toString()),
       );
     });

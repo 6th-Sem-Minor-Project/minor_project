@@ -59,7 +59,7 @@ class _SignUpState extends State<SignUp> {
           ? Loading()
           : Scaffold(
               appBar: AppBar(
-                title: Text('Sign into Brew Crew'),
+                title: Text('Register on NIE AnswerHub'),
               ),
               body: Form(
                 key: _formKey,

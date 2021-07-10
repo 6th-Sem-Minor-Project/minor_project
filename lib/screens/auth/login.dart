@@ -129,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
           ? Loading()
           : Scaffold(
               appBar: AppBar(
-                title: Text('Sign into Brew Crew'),
+                title: Text('Sign into NIE AnswerHub'),
               ),
               body: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),

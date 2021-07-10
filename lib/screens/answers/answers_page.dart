@@ -2,7 +2,6 @@ import 'package:minor_project/screens/answers/submit_answer.dart';
 import 'package:minor_project/screens/home/ask_question.dart';
 import '../../utils/functions/functions.dart';
 import 'package:minor_project/screens/answers/answer_list.dart';
-import 'package:minor_project/screens/home/edit_question.dart';
 import '../../models/answer.dart';
 import '../../models/question.dart';
 import '../../models/user.dart';
@@ -10,7 +9,7 @@ import '../../services/database.dart';
 import '../../utils/spinner/loading_spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../utils/dialog/show_dialog.dart';
+
 
 class AnswersPage extends StatefulWidget {
   AnswersPage({this.question});
@@ -44,9 +43,11 @@ class _AnswersPageState extends State<AnswersPage> {
         child: Icon(Icons.edit),
         onPressed: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => AskQuestion(question: widget.question))).then((_) => setState(() {}));
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          AskQuestion(question: widget.question)))
+              .then((_) => setState(() {}));
         },
       );
     } else {
@@ -135,17 +136,19 @@ class _AnswersPageState extends State<AnswersPage> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            questionAskedByUser.uid == uid ? 'Me' : questionAskedByUser.name,
+                            questionAskedByUser.uid == uid
+                                ? 'Me'
+                                : questionAskedByUser.name,
                             style: TextStyle(
                               fontSize: 15,
-                              fontWeight: FontWeight.w200,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                           Text(
                             questionAskedByUser.usn,
                             style: TextStyle(
                               fontSize: 15,
-                              fontWeight: FontWeight.w200,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ],
@@ -161,13 +164,16 @@ class _AnswersPageState extends State<AnswersPage> {
                           children: [
                             Expanded(
                               child: ElevatedButton(
-                                  child: Text(widget.question.isClosed ? 'Reopen Question' : 'Close Question'),
+                                  child: Text(widget.question.isClosed
+                                      ? 'Reopen Question'
+                                      : 'Close Question'),
                                   onPressed: () {
                                     db.toggleCloseQuestion(widget.question);
                                     // showMyDialog(context, 'Question Closed',
                                     //     'This question is now closed!');
                                     setState(() {
-                                      widget.question.isClosed = !widget.question.isClosed;
+                                      widget.question.isClosed =
+                                          !widget.question.isClosed;
                                     });
                                     Navigator.pop(context);
                                   }),
