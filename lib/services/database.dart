@@ -2,7 +2,7 @@ import '../models/question.dart';
 import '../models/user.dart';
 import '../models/answer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../models/project_request.dart'
+import '../models/project_request.dart';
 
 class DatabaseService {
   final String uid;
@@ -82,6 +82,16 @@ class DatabaseService {
         .catchError((error) => error);
   }
 
+  Future<void> toggleCloseRequest(ProjectRequest request) async {
+    return await projReqCollection
+        .doc(request.id)
+        .update({
+          'isClosed': true,
+        })
+        .then((value) => value)
+        .catchError((error) => error);
+  }
+
   List<UserModel> _userListFromSnapshot(QuerySnapshot snapshot) {
     // var doc = await userCollection.doc(uid).get();
     // print(document['name']);
@@ -123,18 +133,20 @@ class DatabaseService {
     }).toList();
   }
 
-  List<ProjectRequest> _requestListFromSnapshot(QuerySnapshot snapshot) {
+  List<ProjectRequest> _requestsListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
+      print(doc);
       return ProjectRequest(
         title: doc['title'],
         description: doc['description'],
         skills: doc['skills'],
-        uid: doc['userId']
+        uid: doc['uid'],
         isClosed: doc['isClosed'],
         teamHeadCount: doc['team_head_count'],
+        subTitle: doc['subtitle'],
         id: doc.id,
-      )
-    })
+      );
+    }).toList();
   }
 
   Future<void> addQuestion(Question question) async {
@@ -148,6 +160,22 @@ class DatabaseService {
           'isClosed': false,
         })
         .then((value) => print('Question Added'))
+        .catchError((error) => print(error));
+  }
+
+  Future<void> addRequest(ProjectRequest request) async {
+    return await projReqCollection
+        .add({
+          'title': request.title,
+          'subtitle': request.subTitle,
+          'description': request.description,
+          'skills': request.skills,
+          'tags': request.tags,
+          'team_head_count': request.teamHeadCount,
+          'uid': request.uid,
+          'isClosed': request.isClosed,
+        })
+        .then((value) => value)
         .catchError((error) => print(error));
   }
 
@@ -181,5 +209,4 @@ class DatabaseService {
   Stream<List<ProjectRequest>> get requests {
     return projReqCollection.snapshots().map(_requestsListFromSnapshot);
   }
-
 }

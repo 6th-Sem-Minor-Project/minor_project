@@ -4,6 +4,7 @@ import 'package:minor_project/screens/home/ask_question.dart';
 import 'package:minor_project/screens/home/question_list.dart';
 import 'package:minor_project/screens/profile/user_profile.dart';
 import 'package:minor_project/screens/project_req/add_project_request.dart';
+import 'package:minor_project/screens/project_req/display_requests.dart';
 import 'package:minor_project/screens/search/search.dart';
 import 'package:minor_project/services/auth_service.dart';
 import 'package:minor_project/services/database.dart';
@@ -47,7 +48,7 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(
                 context,
                 (MaterialPageRoute(
-                  builder: (context) => AskQuestion(dept: 'general'),
+                  builder: (context) => AddProjectRequest(),
                 )),
               );
             },
@@ -74,7 +75,7 @@ class _HomePageState extends State<HomePage> {
       'Nie AnswerHub',
       'Search Page',
       'Select Department',
-      'Project Request',
+      'Project Collaboration Request',
     ];
 
     List<dynamic> tagsToFilter = ['general'];
@@ -83,7 +84,7 @@ class _HomePageState extends State<HomePage> {
       QuestionList(tagsToFilter: tagsToFilter),
       SearchQuestions(),
       SelectDepartment(),
-      AddProjectRequest(),
+      DisplayProjectRequests(),
     ];
 
     return Scaffold(
@@ -130,7 +131,7 @@ class _HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.my_library_add_sharp),
-            label: 'Project Request',
+            label: 'Colab',
             // title: Text('Home'),
           ),
         ],

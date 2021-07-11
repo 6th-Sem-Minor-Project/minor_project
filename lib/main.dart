@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:minor_project/models/project_request.dart';
 import 'package:minor_project/screens/wrapper.dart';
 import 'package:minor_project/services/auth_service.dart';
 import 'package:provider/provider.dart';
@@ -33,17 +34,15 @@ class MyApp extends StatelessWidget {
         StreamProvider<List<UserModel>>.value(
           value: DatabaseService().userProfile,
         ),
+        StreamProvider<List<ProjectRequest>>.value(
+          value: DatabaseService().requests,
+        )
       ],
       child: MaterialApp(
-        // theme: ThemeData(
-        //   primaryTextTheme: TextTheme(
-        //     bodyText1: TextStyle(
-        //       color: Colors.white,
-        //     ),
-        //   ),
-        //   backgroundColor: bgColor,
-        // ),
-
+        theme: ThemeData(
+          primaryColor: Colors.blue[800],
+          accentColor: Colors.blue[800],
+        ),
         debugShowCheckedModeBanner: false,
         home: Wrapper(),
       ),

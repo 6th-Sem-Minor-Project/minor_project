@@ -20,6 +20,9 @@ class _AskQuestionState extends State<AskQuestion> {
     tags = tags.trim();
     List<dynamic> tagsList = tags.split('#');
     tagsList = tagsList.sublist(1);
+    tagsList.forEach((element) {
+      element = element.toString().trim();
+    });
     // print(tagsList);
     return tagsList;
   }
