@@ -4,7 +4,7 @@ import 'package:minor_project/services/database.dart';
 import 'package:provider/provider.dart';
 
 class AskQuestion extends StatefulWidget {
-  String dept;
+  String dept = null;
   Question question = null;
 
   AskQuestion({this.dept, this.question});
@@ -41,10 +41,14 @@ class _AskQuestionState extends State<AskQuestion> {
     TextEditingController descriptionController = TextEditingController();
     TextEditingController tagsController = TextEditingController();
 
-    if (widget.dept == 'general') {
-      tagsController.text = '#general';
-    } else {
-      tagsController.text = widget.dept;
+    print(widget.question);
+
+    if (widget.dept != null) {
+      if (widget.dept == 'general') {
+        tagsController.text = '#general';
+      } else {
+        tagsController.text = '#' + widget.dept;
+      }
     }
 
     if (widget.question != null) {
@@ -58,12 +62,7 @@ class _AskQuestionState extends State<AskQuestion> {
         title: Text('Ask Question...'),
       ),
       body: GestureDetector(
-        onTap: () {
-          FocusScopeNode currentFocus = FocusScope.of(context);
-          if (!currentFocus.hasPrimaryFocus) {
-            currentFocus.unfocus();
-          }
-        },
+        onTap: () {},
         child: Form(
           key: _formKey,
           child: Container(

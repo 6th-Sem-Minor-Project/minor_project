@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minor_project/models/project_request.dart';
 import 'package:minor_project/models/user.dart';
+import 'package:minor_project/screens/project_req/add_project_request.dart';
 import 'package:minor_project/screens/project_req/response_page.dart';
 import 'package:minor_project/services/database.dart';
 import 'package:minor_project/utils/dialog/show_dialog.dart';
@@ -42,6 +43,8 @@ class _RequestDetailsState extends State<RequestDetails> {
     }
 
     UserModel requester = Functions.getUserDetails(users, widget.request.uid);
+
+    print(widget.request.tags);
 
     return Scaffold(
       appBar: AppBar(title: Text('Request Details')),
@@ -92,58 +95,67 @@ class _RequestDetailsState extends State<RequestDetails> {
                 child: Container(
                   height: 200,
                   padding: EdgeInsets.all(25),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Text('Request Status: '),
-                          Expanded(child: SizedBox()),
-                          Text(widget.request.isClosed ? 'Closed' : 'Open'),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Text('Expected Team Size: '),
-                          Expanded(child: SizedBox()),
-                          Text(widget.request.teamHeadCount),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Text('Request Created By: '),
-                          Expanded(child: SizedBox()),
-                          Text(uid == widget.request.uid
-                              ? 'Me'
-                              : requester.name),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Text('Requester contact: '),
-                          Expanded(child: SizedBox()),
-                          Text(requester.email),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Text('Requester branch: '),
-                          Expanded(child: SizedBox()),
-                          Text(requester.branch),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Text('Requested date: '),
-                          Expanded(child: SizedBox()),
-                          Text(requester.branch),
-                        ],
-                      ),
-                    ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text('Request Status: '),
+                            Expanded(child: SizedBox()),
+                            Text(widget.request.isClosed ? 'Closed' : 'Open'),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Text('Expected Team Size: '),
+                            Expanded(child: SizedBox()),
+                            Text(widget.request.teamHeadCount),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Text('Request Created By: '),
+                            Expanded(child: SizedBox()),
+                            Text(uid == widget.request.uid
+                                ? 'Me'
+                                : requester.name),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Text('Requester contact: '),
+                            Expanded(child: SizedBox()),
+                            Flexible(
+                              child: Container(
+                                child: Text(
+                                  requester.email,
+                                  overflow: TextOverflow.fade,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Text('Requester branch: '),
+                            Expanded(child: SizedBox()),
+                            Text(requester.branch),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Text('Requested date: '),
+                            Expanded(child: SizedBox()),
+                            Text(requester.branch),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -174,63 +186,73 @@ class _RequestDetailsState extends State<RequestDetails> {
               ),
             ),
             SizedBox(height: 10),
-            uid == widget.request.uid && !widget.request.isClosed
-                ? Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 100),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.red[700],
-                            ),
-                            onPressed: () async {
-                              ProjectRequest requestToBeClosed = ProjectRequest(
-                                id: widget.request.id,
-                              );
-                              print(widget.request.id);
-                              showMyDialog(context, "Close the reqeust?",
-                                  "Do you want to close the request? You cannot reopen a request once it is closed! Do you want to continue?",
-                                  cbs: [_db.toggleCloseRequest, resetPage],
-                                  args: {0: requestToBeClosed});
-                              print(widget.request.isClosed);
-                            },
-                            child: Text('Close Request'),
-                          ),
-                        ),
-                      )
-                    ],
-                  )
-                : Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 100),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.greenAccent[700],
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => InterestedResponsePage(
-                                      request: widget.request),
+            widget.request.isClosed
+                ? SizedBox()
+                : uid == widget.request.uid
+                    ? Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 100),
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.red[700],
                                 ),
-                              );
-                            },
-                            child: Text('I\'m Interested!'),
-                          ),
-                        ),
+                                onPressed: () async {
+                                  ProjectRequest requestToBeClosed =
+                                      ProjectRequest(
+                                    id: widget.request.id,
+                                  );
+                                  print(widget.request.id);
+                                  showMyDialog(context, "Close the reqeust?",
+                                      "Do you want to close the request? You cannot reopen a request once it is closed! Do you want to continue?",
+                                      cbs: [_db.toggleCloseRequest, resetPage],
+                                      args: {0: requestToBeClosed});
+                                  print(widget.request.isClosed);
+                                },
+                                child: Text('Close Request'),
+                              ),
+                            ),
+                          )
+                        ],
                       )
-                    ],
-                  ),
+                    : Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 100),
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.greenAccent[700],
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          InterestedResponsePage(
+                                              request: widget.request),
+                                    ),
+                                  );
+                                },
+                                child: Text('I\'m Interested!'),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
           ],
         ),
       ),
       floatingActionButton: Visibility(
         visible: uid == widget.request.uid && !widget.request.isClosed,
-        child: FloatingActionButton(child: Icon(Icons.edit), onPressed: () {}),
+        child: FloatingActionButton(child: Icon(Icons.edit), onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AddProjectRequest(request: widget.request))).then((request) {
+            setState(() {
+              widget.request = request;
+            });
+          });
+        }),
       ),
     );
   }

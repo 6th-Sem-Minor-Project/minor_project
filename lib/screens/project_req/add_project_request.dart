@@ -4,6 +4,11 @@ import 'package:minor_project/services/database.dart';
 import 'package:provider/provider.dart';
 
 class AddProjectRequest extends StatefulWidget {
+
+  ProjectRequest request = null;
+
+  AddProjectRequest({this.request});
+
   @override
   _AddProjectRequestState createState() => _AddProjectRequestState();
 }
@@ -39,9 +44,31 @@ class _AddProjectRequestState extends State<AddProjectRequest> {
 
   DatabaseService _db = DatabaseService();
 
+  String getSkillStringFromList(List<dynamic> skills) {
+    String skillString = skills.join(', ');
+    return skillString;
+  }
+
+  String getTagStringFromList(List<dynamic> tags) {
+    String tagString = tags.join('#');
+    return '#' + tagString;
+  }
+   
+
   @override
   Widget build(BuildContext context) {
     String uid = Provider.of<String>(context);
+    print(widget.request.tags);
+
+    if(widget.request != null) {
+      titleController.text = widget.request.title;
+      subtitleController.text = widget.request.subTitle;
+      descriptionController.text = widget.request.description;
+      aocController.text = getSkillStringFromList(widget.request.skills);
+      teamSizeController.text = widget.request.teamHeadCount;
+      tagsController.text = getTagStringFromList(widget.request.tags);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Request Collaboration'),
@@ -226,25 +253,42 @@ class _AddProjectRequestState extends State<AddProjectRequest> {
                   child: RaisedButton(
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        ProjectRequest newRequest = ProjectRequest(
-                          title: titleController.text,
-                          subTitle: subtitleController.text,
-                          description: descriptionController.text,
-                          skills: getSkillList(aocController.text),
-                          teamHeadCount: teamSizeController.text,
-                          tags: _processInputTags(tagsController.text),
-                          isClosed: false,
-                          uid: uid,
-                        );
-                        await _db.addRequest(newRequest);
-                        Navigator.pop(context);
+                        if(widget.request != null) {
+                          ProjectRequest newRequest = ProjectRequest(
+                            title: titleController.text,
+                            subTitle: subtitleController.text,
+                            description: descriptionController.text,
+                            skills: getSkillList(aocController.text),
+                            teamHeadCount: teamSizeController.text,
+                            tags: _processInputTags(tagsController.text),
+                            id: widget.request.id,
+                            uid: uid,
+                            isClosed: false,
+                          );
+                          await _db.updateRequest(newRequest);
+                          Navigator.pop(context, newRequest);
+                        }
+                        else {
+                          ProjectRequest newRequest = ProjectRequest(
+                            title: titleController.text,
+                            subTitle: subtitleController.text,
+                            description: descriptionController.text,
+                            skills: getSkillList(aocController.text),
+                            teamHeadCount: teamSizeController.text,
+                            tags: _processInputTags(tagsController.text),
+                            isClosed: false,
+                            uid: uid,
+                          );
+                          await _db.addRequest(newRequest);
+                          Navigator.pop(context);
+                        }
                       }
                     },
                     color: Colors.blue[800],
                     textColor: Colors.blueGrey[100],
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 10),
-                    child: Text("Send Request"),
+                    child: Text(widget.request == null ? "Send Request" : "Edit Request"),
                   ),
                 ),
                 Container(

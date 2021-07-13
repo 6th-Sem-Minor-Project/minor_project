@@ -77,8 +77,23 @@ class _SignUpState extends State<SignUp> {
                             autofocus: false,
                             decoration: InputDecoration(
                               labelText: 'Name',
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.blueGrey,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.blue[800],
+                                  width: 2,
+                                ),
+                              ),
+                              labelStyle: TextStyle(
+                                color: Colors.blue[800],
+                              ),
                             ),
                           ),
+                          SizedBox(height: 10),
                           TextFormField(
                             validator: (value) =>
                                 value.isEmpty ? 'Enter USN' : null,
@@ -86,8 +101,23 @@ class _SignUpState extends State<SignUp> {
                             autofocus: false,
                             decoration: InputDecoration(
                               labelText: 'USN',
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.blueGrey,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.blue[800],
+                                  width: 2,
+                                ),
+                              ),
+                              labelStyle: TextStyle(
+                                color: Colors.blue[800],
+                              ),
                             ),
                           ),
+                          SizedBox(height: 10),
                           TextFormField(
                             validator: (value) => value.isEmpty ||
                                     int.parse(value) < 0 ||
@@ -98,9 +128,24 @@ class _SignUpState extends State<SignUp> {
                             autofocus: false,
                             decoration: InputDecoration(
                               labelText: 'Semester',
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.blueGrey,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.blue[800],
+                                  width: 2,
+                                ),
+                              ),
+                              labelStyle: TextStyle(
+                                color: Colors.blue[800],
+                              ),
                             ),
                             keyboardType: TextInputType.number,
                           ),
+                          SizedBox(height: 10),
                           TextFormField(
                             validator: (value) =>
                                 value.isEmpty ? 'Enter a Branch' : null,
@@ -109,8 +154,23 @@ class _SignUpState extends State<SignUp> {
                             autofocus: false,
                             decoration: InputDecoration(
                                 labelText: 'Branch',
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.blueGrey,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.blue[800],
+                                    width: 2,
+                                  ),
+                                ),
+                                labelStyle: TextStyle(
+                                  color: Colors.blue[800],
+                                ),
                                 hintText: 'Eg: CSE, ISE, etc.,'),
                           ),
+                          SizedBox(height: 10),
                           TextFormField(
                             validator: (value) {
                               return value == '' ? 'Enter an email' : null;
@@ -119,9 +179,24 @@ class _SignUpState extends State<SignUp> {
                             autofocus: false,
                             decoration: InputDecoration(
                               labelText: 'Email',
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.blueGrey,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.blue[800],
+                                  width: 2,
+                                ),
+                              ),
+                              labelStyle: TextStyle(
+                                color: Colors.blue[800],
+                              ),
                             ),
                             keyboardType: TextInputType.emailAddress,
                           ),
+                          SizedBox(height: 10),
                           TextFormField(
                             validator: (value) => value.isEmpty ||
                                     value.length < 6
@@ -130,6 +205,20 @@ class _SignUpState extends State<SignUp> {
                             controller: passwordController,
                             decoration: InputDecoration(
                               labelText: 'Password',
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.blueGrey,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.blue[800],
+                                  width: 2,
+                                ),
+                              ),
+                              labelStyle: TextStyle(
+                                color: Colors.blue[800],
+                              ),
                             ),
                           ),
                           SizedBox(

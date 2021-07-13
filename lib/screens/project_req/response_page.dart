@@ -4,6 +4,7 @@ import 'package:minor_project/models/user.dart';
 import 'package:minor_project/utils/functions/functions.dart';
 import 'package:minor_project/utils/spinner/loading_spinner.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class InterestedResponsePage extends StatefulWidget {
   final ProjectRequest request;
@@ -24,20 +25,20 @@ class _InterestedResponsePageState extends State<InterestedResponsePage> {
   }
 
   String generateResponseEmail(
-    String additionalResponse, UserModel curUser, UserModel requester) {
+      String additionalResponse, UserModel curUser, UserModel requester) {
     List<String> familiarAreas = [];
     skills.forEach((key, value) {
-      if(value == true) {
+      if (value == true) {
         familiarAreas.add(key);
       }
     });
     String skillString = familiarAreas.join(', ');
     String response =
         'Hi ${requester.name},\n\tI am ${curUser.name}. I am interested in the colab request, ${widget.request.title}, that you had put up on NIE AnswerHub. I would Like to collaborate with you for this project. The areas that I am familiar with are: $skillString' +
-            '\nIf you want to team up with me, please feel free to reach out to me\nP.S: ' +
-            additionalResponse +
+            '\nIf you want to team up with me, please feel free to reach out to me\n' +
+            (additionalResponse != '' ? 'PS $additionalResponse' : '') +
             '\nBest Regards\n${curUser.name}';
-    
+
     return response;
   }
 
@@ -156,8 +157,14 @@ class _InterestedResponsePageState extends State<InterestedResponsePage> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50),
                     child: RaisedButton(
-                      onPressed: () {
-                        print(generateResponseEmail(addResController.text, currUser, requester));
+                      onPressed: () async {
+                        print(requester.email);
+                        String recipient = requester.email;
+                        String subject =
+                            'Project Collaboration (NIE AnswerHub)';
+                        String body = generateResponseEmail(
+                            addResController.text, currUser, requester);
+                        await Functions.sendEmail(recipient, subject, body);
                       },
                       color: Colors.blue[800],
                       textColor: Colors.blueGrey[100],

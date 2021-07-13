@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:minor_project/screens/auth/forgot_password.dart';
 import '../../services/auth_service.dart';
 import '../home/home_page.dart';
 import '../../utils/spinner/loading_spinner.dart';
@@ -139,11 +140,27 @@ class _LoginPageState extends State<LoginPage> {
                     TextField(
                       controller: emailController,
                       autofocus: false,
+                      cursorColor: Colors.blue[800],
                       decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.blueGrey,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.blue[800],
+                            width: 2,
+                          ),
+                        ),
                         labelText: 'Email',
+                        labelStyle: TextStyle(
+                          color: Colors.blue[800],
+                        ),
                       ),
                       keyboardType: TextInputType.emailAddress,
                     ),
+                    SizedBox(height: 20),
                     TextField(
                       controller: passwordController,
                       obscureText: this._obscureText,
@@ -157,6 +174,20 @@ class _LoginPageState extends State<LoginPage> {
                           },
                         ),
                         labelText: 'Password',
+                        labelStyle: TextStyle(
+                          color: Colors.blue[800],
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.blueGrey,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.blue[800],
+                            width: 2,
+                          ),
+                        ),
                       ),
                       keyboardType: TextInputType.emailAddress,
                     ),
@@ -207,6 +238,12 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text('Register Here...'),
                       onPressed: () {
                         widget.toggleForms();
+                      },
+                    ),
+                    TextButton(
+                      child: Text('Forgot Password'),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword(),),);
                       },
                     ),
                   ],

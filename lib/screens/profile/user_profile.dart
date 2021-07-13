@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:minor_project/models/user.dart';
+import 'package:minor_project/screens/wrapper.dart';
 import 'package:minor_project/services/auth_service.dart';
 import 'package:minor_project/services/database.dart';
 import 'package:minor_project/utils/dialog/show_dialog.dart';
@@ -16,6 +18,8 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     List<UserModel> userList = Provider.of<List<UserModel>>(context);
+    FirebaseAuth instance = FirebaseAuth.instance;
+    User currUser;
     bool loading = true;
     String uid = Provider.of<String>(context);
     DatabaseService _db = DatabaseService();
@@ -312,7 +316,13 @@ class _UserProfileState extends State<UserProfile> {
                         Expanded(
                           child: RaisedButton(
                             color: Colors.blue[800],
-                            onPressed: () {},
+                            onPressed: () async {
+                              await instance.sendPasswordResetEmail(
+                                  email: user.email);
+                              showMyDialog(context, "Password reset email sent",
+                                  "An email has been sent to your registered email id with the steps to follow to reset your password.",
+                                  cbs: [_auth.signOut]);
+                            },
                             child: Text("Change Password"),
                             textColor: Colors.blueGrey[100],
                           ),
@@ -322,9 +332,8 @@ class _UserProfileState extends State<UserProfile> {
                           child: RaisedButton(
                             onPressed: () async {
                               String result = await _auth.signOut();
-                              if (result != null) {
-                                Navigator.pop(context);
-                              }
+
+                              Navigator.pop(context, 'logout');
                             },
                             color: Colors.blue[800],
                             textColor: Colors.blueGrey[100],
@@ -338,7 +347,10 @@ class _UserProfileState extends State<UserProfile> {
                     height: 80,
                     alignment: Alignment.bottomCenter,
                     child: TextButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          Functions.sendEmail(
+                              'nie.answerhub@gmail.com', '', '');
+                        },
                         style: TextButton.styleFrom(
                           primary: Colors.blue[800],
                         ),

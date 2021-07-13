@@ -72,6 +72,19 @@ class DatabaseService {
         .catchError((error) => error);
   }
 
+  Future<void> updateRequest(ProjectRequest request) async {
+    return await projReqCollection
+    .doc(request.id)
+    .update({
+      'title': request.title,
+      'subtitle': request.subTitle,
+      'description': request.description,
+      'skills': request.skills,
+      'tags': request.tags,
+      'team_head_count': request.teamHeadCount,
+    });
+  }
+
   Future<void> toggleCloseQuestion(Question question) async {
     return await questionCollection
         .doc(question.id)
@@ -135,7 +148,7 @@ class DatabaseService {
 
   List<ProjectRequest> _requestsListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-      print(doc);
+      print(doc['tags']);
       return ProjectRequest(
         title: doc['title'],
         description: doc['description'],
@@ -144,6 +157,7 @@ class DatabaseService {
         isClosed: doc['isClosed'],
         teamHeadCount: doc['team_head_count'],
         subTitle: doc['subtitle'],
+        tags: doc['tags'],
         id: doc.id,
       );
     }).toList();

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:minor_project/screens/auth/validate_email.dart';
 
 import '../screens/home/home_page.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,7 @@ class _WrapperState extends State<Wrapper> {
     if (user == null) {
       return Authenticate();
     } else {
-      return HomePage();
+      return VeifyEmail();
     }
   }
 }

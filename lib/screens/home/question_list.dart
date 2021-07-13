@@ -40,12 +40,16 @@ class _QuestionListState extends State<QuestionList> {
     }
     return loading
         ? Loading()
-        : ListView.builder(
-            itemBuilder: (context, index) {
-              return QuestionTile(questions[index]);
-            },
-            itemCount: questions.length,
-          );
+        : questions.length == 0
+            ? Center(
+                child: Text('Be the first to ask a question...'),
+              )
+            : ListView.builder(
+                itemBuilder: (context, index) {
+                  return QuestionTile(questions[index]);
+                },
+                itemCount: questions.length,
+              );
     // return Container(
     //   child: Text('HEllo'),
     // );

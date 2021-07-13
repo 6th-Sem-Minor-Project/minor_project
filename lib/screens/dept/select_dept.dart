@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minor_project/screens/dept/dept_specific_questions.dart';
 
 class SelectDepartment extends StatefulWidget {
   @override
@@ -22,7 +23,13 @@ class _SelectDepartmentState extends State<SelectDepartment> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
                   color: Colors.blueGrey[100],
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                DepartmentQuestions(department: 'ce')));
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.person),
@@ -45,7 +52,13 @@ class _SelectDepartmentState extends State<SelectDepartment> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
                   color: Colors.blueGrey[100],
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                DepartmentQuestions(department: 'me')));
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.person),
@@ -68,7 +81,13 @@ class _SelectDepartmentState extends State<SelectDepartment> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
                   color: Colors.blueGrey[100],
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                DepartmentQuestions(department: 'eee')));
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.person),
@@ -91,7 +110,13 @@ class _SelectDepartmentState extends State<SelectDepartment> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
                   color: Colors.blueGrey[100],
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                DepartmentQuestions(department: 'ece')));
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.person),
@@ -114,7 +139,13 @@ class _SelectDepartmentState extends State<SelectDepartment> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
                   color: Colors.blueGrey[100],
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                DepartmentQuestions(department: 'ipe')));
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.person),
@@ -137,7 +168,13 @@ class _SelectDepartmentState extends State<SelectDepartment> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
                   color: Colors.blueGrey[100],
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                DepartmentQuestions(department: 'cse')));
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.person),
@@ -160,7 +197,13 @@ class _SelectDepartmentState extends State<SelectDepartment> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
                   color: Colors.blueGrey[100],
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                DepartmentQuestions(department: 'ise')));
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.person),
@@ -183,7 +226,13 @@ class _SelectDepartmentState extends State<SelectDepartment> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
                   color: Colors.blueGrey[100],
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                DepartmentQuestions(department: 'mca')));
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.person),
@@ -206,7 +255,13 @@ class _SelectDepartmentState extends State<SelectDepartment> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
                   color: Colors.blueGrey[100],
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                DepartmentQuestions(department: 'mat')));
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.person),
@@ -229,7 +284,13 @@ class _SelectDepartmentState extends State<SelectDepartment> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
                   color: Colors.blueGrey[100],
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                DepartmentQuestions(department: 'phy')));
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.person),
@@ -252,7 +313,13 @@ class _SelectDepartmentState extends State<SelectDepartment> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
                   color: Colors.blueGrey[100],
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                DepartmentQuestions(department: 'che')));
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.person),

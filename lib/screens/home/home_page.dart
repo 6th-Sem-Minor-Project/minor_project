@@ -10,6 +10,8 @@ import 'package:minor_project/services/auth_service.dart';
 import 'package:minor_project/services/database.dart';
 import 'package:provider/provider.dart';
 
+import '../wrapper.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -70,6 +72,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final uid = Provider.of<String>(context);
     this.tagsController.text = '#general';
+    String authState;
 
     List<String> titleList = [
       'Nie AnswerHub',
@@ -96,13 +99,17 @@ class _HomePageState extends State<HomePage> {
               Icons.account_circle_sharp,
               color: Colors.white,
             ),
-            onPressed: () {
-              Navigator.push(
+            onPressed: () async {
+              final authStatus = await Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => UserProfile(),
                 ),
               );
+              if (authStatus == 'logout') {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => Wrapper()));
+              }
             },
           ),
         ],
