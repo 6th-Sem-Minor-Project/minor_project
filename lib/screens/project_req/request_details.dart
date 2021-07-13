@@ -146,14 +146,7 @@ class _RequestDetailsState extends State<RequestDetails> {
                             Text(requester.branch),
                           ],
                         ),
-                        SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Text('Requested date: '),
-                            Expanded(child: SizedBox()),
-                            Text(requester.branch),
-                          ],
-                        ),
+                        
                       ],
                     ),
                   ),
@@ -248,9 +241,11 @@ class _RequestDetailsState extends State<RequestDetails> {
         visible: uid == widget.request.uid && !widget.request.isClosed,
         child: FloatingActionButton(child: Icon(Icons.edit), onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => AddProjectRequest(request: widget.request))).then((request) {
-            setState(() {
-              widget.request = request;
-            });
+            if(request != null) {
+              setState(() {
+                widget.request = request;
+              });
+            }
           });
         }),
       ),

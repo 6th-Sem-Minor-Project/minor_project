@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:minor_project/models/project_request.dart';
+import 'package:minor_project/screens/splash_screen/splash_screen.dart';
 import 'package:minor_project/screens/wrapper.dart';
 import 'package:minor_project/services/auth_service.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.blue[800],
         ),
         debugShowCheckedModeBanner: false,
-        home: Wrapper(),
+        home: MyHomePage(),
       ),
     );
   }
@@ -60,6 +61,6 @@ class AuthenticationWrapper extends StatelessWidget {
     // } else {
     //   return LoginPage();
     // }
-    return Wrapper();
+    return MyHomePage();
   }
 }

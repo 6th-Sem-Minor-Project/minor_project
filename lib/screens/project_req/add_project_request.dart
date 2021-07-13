@@ -58,7 +58,6 @@ class _AddProjectRequestState extends State<AddProjectRequest> {
   @override
   Widget build(BuildContext context) {
     String uid = Provider.of<String>(context);
-    print(widget.request.tags);
 
     if(widget.request != null) {
       titleController.text = widget.request.title;
